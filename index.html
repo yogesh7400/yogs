@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something For You 🌻</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #fff7d6, #ffe9ef, #e8f7ff);
+    color: #292929;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(18px);
+    border-radius: 30px;
+    padding: 35px 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    text-align: center;
+    animation: fadeUp .8s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sunflower {
+    font-size: 75px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    50% {
+        transform: translateY(-12px) rotate(3deg);
+    }
+}
+
+h1 {
+    font-size: 34px;
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+}
+
+.typing {
+    min-height: 50px;
+    font-size: 18px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 18px;
+    padding: 14px 24px;
+    transition: .25s;
+}
+
+.primary {
+    margin-top: 25px;
+    background: #ffb703;
+    color: white;
+    box-shadow: 0 8px 20px rgba(255,183,3,.3);
+}
+
+.primary:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+.progress-area {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.progress {
+    height: 8px;
+    background: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 14.28%;
+    background: linear-gradient(90deg, #ffb703, #fb7185);
+    transition: width .4s ease;
+}
+
+.question-number {
+    color: #ff9800;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.options {
+    display: grid;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.option {
+    background: white;
+    border: 2px solid transparent;
+    padding: 16px;
+    border-radius: 18px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0,0,0,.06);
+}
+
+.option:hover {
+    border-color: #ffb703;
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    border-color: #ffb703;
+    background: #fff8df;
+}
+
+textarea {
+    width: 100%;
+    min-height: 130px;
+    border: 2px solid #eee;
+    border-radius: 18px;
+    padding: 15px;
+    margin-top: 20px;
+    resize: none;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #ffb703;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.back {
+    background: #eee;
+}
+
+.next {
+    background: #ffb703;
+    color: white;
+}
+
+.answer-summary {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.answer-item {
+    background: white;
+    padding: 14px;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+.answer-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.final-message {
+    font-size: 19px;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
+.photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    margin-bottom: 15px;
+}
+
+.heart {
+    font-size: 55px;
+    animation: heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.final-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.yes {
+    background: #ff6b81;
+    color: white;
+}
+
+.maybe {
+    background: #ffe08a;
+}
+
+.success {
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.particle {
+    position: fixed;
+    top: -30px;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 99;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media(max-width:500px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .card {
+        padding: 28px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<section id="intro" class="screen">
+    <div class="card">
+
+        <!-- PUT HER IMAGE URL HERE -->
+        <!-- Example:
+        <img class="photo"
+        src="YOUR_NEHA_IMAGE_URL_HERE">
+        -->
+
+        <div class="sunflower">🌻</div>
+
+        <h1>Hey Neha... 👀</h1>
+
+        <p class="typing" id="typingText"></p>
+
+        <button class="primary" onclick="startQuiz()">
+            Okay, I'm curious 👀
+        </button>
+
+    </div>
+</section>
+
+
+<!-- QUIZ -->
+<section id="quiz" class="screen hidden">
+    <div class="card">
+
+        <div class="progress-area">
+            <div class="progress-text">
+                <span id="progressText">Question 1 of 7</span>
+                <span id="percent">14%</span>
+            </div>
+
+            <div class="progress">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div id="questionContainer"></div>
+
+    </div>
+</section>
+
+
+<!-- REVIEW -->
+<section id="review" class="screen hidden">
+    <div class="card">
+
+        <div class="heart">💛</div>
+
+        <h1>Almost there...</h1>
+
+        <p>
+            So I got to know a few little things about you. 😄
+        </p>
+
+        <div id="answerSummary" class="answer-summary"></div>
+
+        <button class="primary" onclick="showFinal()">
+            One last surprise ✨
+        </button>
+
+    </div>
+</section>
+
+
+<!-- FINAL -->
+<section id="final" class="screen hidden">
+    <div class="card">
+
+        <div class="sunflower">🌻</div>
+
+        <h1>A Little Something For You</h1>
+
+        <div class="final-message">
+
+            <p>
+                Okay... I learned a little more about you. 😊
+            </p>
+
+            <br>
+
+            <p>
+                And honestly, I didn't make this to impress you
+                or expect anything from you.
+            </p>
+
+            <br>
+
+            <p>
+                I just wanted to know the little things
+                that make you <b>YOU</b>. ✨
+            </p>
+
+            <br>
+
+            <p>
+                Some people just make ordinary moments
+                feel a little brighter. 🌻
+            </p>
+
+            <br>
+
+            <b>
+                And I hope this little surprise made you smile. 😄
+            </b>
+
+        </div>
+
+        <h2 style="margin-top:30px;">
+            Did I make you smile? 👀
+        </h2>
+
+        <div class="final-buttons">
+
+            <button class="yes" onclick="finalAnswer('Yes 🌻')">
+                Yes 🌻
+            </button>
+
+            <button class="maybe" onclick="finalAnswer('A little 😂')">
+                A little 😂
+            </button>
+
+        </div>
+
+        <div id="successMessage" class="success"></div>
+
+    </div>
+</section>
+
+
+<script>
+
+const questions = [
+
+    {
+        question: "What's your ultimate comfort food? 🍕",
+        options: [
+            "Pizza 🍕",
+            "Burger 🍔",
+            "Chocolate Cake 🍰",
+            "Something else 😋"
+        ]
+    },
+
+    {
+        question: "What's your perfect weekend? 🌅",
+        options: [
+            "Stay home & relax 🛋️",
+            "Long drive 🚗",
+            "Explore somewhere new 🗺️",
+            "Good food + good company 🍕"
+        ]
+    },
+
+    {
+        question: "Where would you instantly feel happy? ✨",
+        options: [
+            "Beach 🌊",
+            "Mountains 🏔️",
+            "Cute Café ☕",
+            "My favourite place 🏡"
+        ]
+    },
+
+    {
+        question: "Choose your vibe 🎧",
+        options: [
+            "Music 🎵",
+            "Movies 🎬",
+            "Deep conversations 💬",
+            "Adventure 🏍️"
+        ]
+    },
+
+    {
+        question: "What's something that always makes you smile? 😄",
+        text: true
+    },
+
+    {
+        question: "If you could travel anywhere tomorrow, where would you go? ✈️",
+        text: true
+    },
+
+    {
+        question: "What's one thing you wish people understood about you? 💭",
+        text: true
+    }
+
+];
+
+let currentQuestion = 0;
+let answers = [];
+
+
+// TYPING EFFECT
+
+const introText =
+"Someone told me I should ask you a few questions... so I made something instead. 😌";
+
+let typingIndex = 0;
+
+function typeText() {
+
+    if (typingIndex < introText.length) {
+
+        document.getElementById("typingText").innerHTML +=
+        introText.charAt(typingIndex);
+
+        typingIndex++;
+
+        setTimeout(typeText, 35);
+    }
+}
+
+typeText();
+
+
+// START QUIZ
+
+function startQuiz() {
+
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+
+    showQuestion();
+
+}
+
+
+// SHOW QUESTION
+
+function showQuestion() {
+
+    const q = questions[currentQuestion];
+
+    const container =
+    document.getElementById("questionContainer");
+
+    let html = `
+        <div class="question-number">
+            QUESTION ${currentQuestion + 1}
+        </div>
+
+        <h2>${q.question}</h2>
+    `;
+
+    if (q.text) {
+
+        html += `
+            <textarea
+                id="textAnswer"
+                placeholder="Type whatever comes to your mind... 💭"
+            ></textarea>
+        `;
+
+    } else {
+
+        html += `<div class="options">`;
+
+        q.options.forEach((option, index) => {
+
+            html += `
+                <button
+                    class="option"
+                    onclick="selectOption(${index})"
+                    id="option-${index}">
+                    ${option}
+                </button>
+            `;
+
+        });
+
+        html += `</div>`;
+    }
+
+    html += `
+        <div class="nav">
+
+            <button
+                class="back"
+                onclick="previousQuestion()"
+                ${currentQuestion === 0 ? "style='visibility:hidden'" : ""}>
+                ← Back
+            </button>
+
+            <button
+                class="next"
+                onclick="nextQuestion()">
+                ${currentQuestion === questions.length - 1
+                    ? "Finish ✨"
+                    : "Next →"}
+            </button>
+
+        </div>
+    `;
+
+    container.innerHTML = html;
+
+    updateProgress();
+}
+
+
+// SELECT OPTION
+
+function selectOption(index) {
+
+    document.querySelectorAll(".option")
+    .forEach(btn => btn.classList.remove("selected"));
+
+    document
+    .getElementById(`option-${index}`)
+    .classList.add("selected");
+
+    answers[currentQuestion] =
+    questions[currentQuestion].options[index];
+}
+
+
+// NEXT
+
+function nextQuestion() {
+
+    const q = questions[currentQuestion];
+
+    if (q.text) {
+
+        const input =
+        document.getElementById("textAnswer");
+
+        if (!input.value.trim()) {
+
+            alert("Don't leave me curious 😭 Type something!");
+
+            return;
+        }
+
+        answers[currentQuestion] =
+        input.value.trim();
+    }
+
+    if (!answers[currentQuestion]) {
+
+        alert("Choose one first 😄");
+
+        return;
+    }
+
+    if (currentQuestion <
+        questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        showReview();
+    }
+}
+
+
+// BACK
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+        currentQuestion--;
+
+        showQuestion();
+    }
+}
+
+
+// PROGRESS
+
+function updateProgress() {
+
+    const percent =
+    Math.round(
+        ((currentQuestion + 1) /
+        questions.length) * 100
+    );
+
+    document.getElementById("progressText")
+    .innerText =
+    `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    document.getElementById("percent")
+    .innerText = percent + "%";
+
+    document.getElementById("progressBar")
+    .style.width = percent + "%";
+}
+
+
+// REVIEW
+
+function showReview() {
+
+    document.getElementById("quiz")
+    .classList.add("hidden");
+
+    document.getElementById("review")
+    .classList.remove("hidden");
+
+    const summary =
+    document.getElementById("answerSummary");
+
+    summary.innerHTML = "";
+
+    questions.forEach((q, index) => {
+
+        summary.innerHTML += `
+            <div class="answer-item">
+                <strong>${index + 1}. ${q.question}</strong>
+                ${answers[index]}
+            </div>
+        `;
+
+    });
+}
+
+
+// FINAL
+
+function showFinal() {
+
+    document.getElementById("review")
+    .classList.add("hidden");
+
+    document.getElementById("final")
+    .classList.remove("hidden");
+
+    createParticles();
+}
+
+
+// FINAL ANSWER + FORMSPREE
+
+async function finalAnswer(response) {
+
+    document.getElementById("successMessage")
+    .innerHTML =
+    "Sending your answers... 💌";
+
+    const data = {
+
+        question_1_comfort_food: answers[0],
+        question_2_weekend: answers[1],
+        question_3_happy_place: answers[2],
+        question_4_vibe: answers[3],
+        question_5_smile: answers[4],
+        question_6_travel: answers[5],
+        question_7_understood: answers[6],
+
+        final_response: response,
+
+        submitted_at:
+        new Date().toLocaleString()
+
+    };
+
+    try {
+
+        const responseData =
+        await fetch(
+            "https://formspree.io/f/xeajebwk",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                    "application/json",
+                    "Accept":
+                    "application/json"
+                },
+
+                body: JSON.stringify(data)
+            }
+        );
+
+        if (responseData.ok) {
+
+            document.getElementById("successMessage")
+            .innerHTML =
+            "Your answers reached me. 🌻<br>Thank you for playing along 😄";
+
+            createParticles();
+
+        } else {
+
+            document.getElementById("successMessage")
+            .innerHTML =
+            "You made it to the end! 🌻";
+
+        }
+
+    } catch (error) {
+
+        document.getElementById("successMessage")
+        .innerHTML =
+        "You made it to the end! 🌻";
+
+        console.log(error);
+    }
+}
+
+
+// FALLING PARTICLES
+
+function createParticles() {
+
+    const symbols =
+    ["🌻","✨","💛","🌸","⭐"];
+
+    for (let i = 0; i < 25; i++) {
+
+        const particle =
+        document.createElement("div");
+
+        particle.className = "particle";
+
+        particle.innerText =
+        symbols[
+            Math.floor(
+                Math.random() * symbols.length
+            )
+        ];
+
+        particle.style.left =
+        Math.random() * 100 + "vw";
+
+        particle.style.animationDuration =
+        (3 + Math.random() * 4) + "s";
+
+        particle.style.fontSize =
+        (15 + Math.random() * 15) + "px";
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 7000);
+    }
+}
+
+</script>
+
+</body>
+</html>
